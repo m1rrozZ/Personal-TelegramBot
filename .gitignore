@@ -1,0 +1,15 @@
+# Config
+.env
+
+# Files
+.idea
+.vscode
+venv/
+__pycache__/   
+
+# Pytest
+.cache/
+.pytest_cache/
+
+# Other
+.obsidian
