@@ -1,0 +1,2 @@
+CREATE DATABASE IF NOT EXISTS db_telegram_users;
+CREATE DATABASE IF NOT EXISTS db_telegram_logs;
