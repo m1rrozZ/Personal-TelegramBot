@@ -3,30 +3,60 @@
 
 #include <string>
 #include <vector>
+#include <optional>
+#include <ctime>
 
-struct Note {
-    int id;
-    std::string title;
-    std::string content;
+struct BanInfo
+{
+    long userID;
+    std::string reason;
+    std::time_t banTime;
 };
 
-class Database
+struct WarnInfo
+{
+    long userID;
+    std::string reason;
+    std::time_t warnTime;
+};
+
+struct LogInfo
+{
+    long adminInfo;
+    std::string action;
+    std::time_t timestamp;
+};
+
+class IDatabase
 {
 public:
-     Database(const std::string& db_name);
-    ~Database();
+    virtual ~IDatabase() = default;
 
-    // Autorisation || Registration
-    bool register_user(const std::string& user_id);
-    bool userExists(const std::string& user_id);
+    // --- Bans ---
+    virtual bool banUser(long userID, const std::string& reason) = 0;
+    virtual bool unbanUser(long userID) = 0;
+    virtual bool isUserBanned(long userID) = 0;
+    virtual std::vector<BanInfo> getBanList() = 0;
 
-    // Notes
-    bool addNote(const std::string& user_id, const std::string& content);
-    std::vector<Note> getNotes(const std::string& user_id);
-    bool deleteNote(const std::string& user_id, int note_id);
+    // --- Warns ---
+    virtual bool warnUser(long userID, const std::string& reason) = 0;
+    virtual bool unwarnUser(long userID) = 0;
+    virtual bool cleanWarns(long userID) = 0;
 
-private:
-    void* connection;
+    // --- Muts ---
+    virtual bool muteUser(long userID) = 0;
+    virtual bool unmuteUser(long userID) = 0;
+    virtual bool isUserMuted(long userID) = 0;
+
+    // --- Others ---
+    virtual bool incrementActivity(long userID) = 0;
+    virtual int getActivityPoints(long userID) = 0;
+    virtual bool setRole(long userID, const std::string& role) = 0;
+    virtual std::string getRole(long userID) = 0;
+
+    // --- Logs ---
+    virtual bool addLog(long adminID, const std::string& action) = 0;
+    virtual std::vector<LogInfo> getLogs() = 0;
 };
 
-#endif // DATABASE_HPP
+#endif // DATABASE_HPPфъъъхыфвщщал=  ффыф
