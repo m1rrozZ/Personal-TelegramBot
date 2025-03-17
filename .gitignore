@@ -1,5 +1,6 @@
 # Config
 .env
+.pem
 
 # Files
 .idea
